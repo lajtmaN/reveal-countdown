@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
+import { Counter } from './Counter'
+import { Logo } from './Logo'
 
 const App: React.FC = () => {
+  const [, deadline, game] = window.location.pathname.split('/')
+  if (!deadline || !game) {
+    return (
+      <pre>
+        Error! No valid time and game. Enter in url: '/2019-09-27T23:51:40.599/I
+        skal spille tetris'
+      </pre>
+    )
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h4>Næste Mystery turnering:</h4>
+        <h2>
+          <Counter deadline={new Date(deadline)} game={decodeURI(game)} />
+        </h2>
       </header>
+      <Logo />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
